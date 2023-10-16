@@ -47,6 +47,9 @@ class Tag(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse_lazy('tag', kwargs={"slug": self.slug})
+
     class Meta:
         ordering = ["title"]
         verbose_name = "Тэг"
@@ -66,6 +69,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse_lazy('post', kwargs={"slug": self.slug})
 
     class Meta:
         ordering = ["-created_at"]

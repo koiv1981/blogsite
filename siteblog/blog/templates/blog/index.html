@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="bg-text">
-                    <h3>Classic BLOG Design</h3>
+                    <h3>Классический сайт-блог</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                         laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
@@ -54,7 +54,7 @@
                         {% else %}
                         <img src="https://picsum.photos/300/201/?blur" alt="{{ item.title }} ">
                         {% endif %}
-                        <h3><a href="">{{ item.title }}</a></h3>
+                        <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
                         <h4><span>Автор:<span class="author-name"><b>{{ item.author }}</b></span></span>
                         </h4>
                         {{ item.content|safe|truncatewords_html:25 }}

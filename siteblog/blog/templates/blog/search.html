@@ -1,0 +1,111 @@
+<!DOCTYPE>
+{% extends 'base.html' %}
+{% load static %}
+{% load sidebar %}
+
+{% block title %}
+{{title}} Поиск :: {{ block.super}}
+{% endblock %}
+
+{% block content %}
+<section class="single-blog-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="border-top">
+                    <div class="col-md-8">
+                        <div class="blog-area">
+                            <br>
+                            <div class="blog-area-part">
+                                {% for item in posts %}
+                                <div class="col-md-4">
+                                    <div class="single-post">
+                                        {% if item.photo %}
+                                        <img src="{{ item.photo.url }}" alt="{{ item.title }}">
+                                        {% else %}
+                                        <img src="https://picsum.photos/300/201/?blur" alt="{{ item.title }} ">
+                                        {% endif %}
+                                        <h5 style="text-align:center"><a href="{{ item.get_absolute_url }}">
+                                            {{ item.title }}</a></h5>
+                                        <h6 style="text-align:center"><span>Автор:<span class="author-name"><b>{{ item.author }}</b></span></span>
+                                        </h6>
+                                        <h6 style="text-align:center"><span>{{ item.created_at|date:"d E Y" }}</span>
+                                        </h6>
+                                    </div>
+                                </div>
+{% empty %}
+<h3>По вашему запросу ничего не найдено</h3>
+{% endfor %}
+
+                            </div>
+                            <div class="col-md-12">
+                                <form action="#" method="get">
+                                    <div class="name">
+                                        <input type="text" name="" id="" placeholder="Name" class="name">
+                                    </div>
+                                    <div class="email">
+                                        <input type="email" name="" id="" placeholder="Email" class="email">
+                                    </div>
+                                    <div class="comment">
+                                        <input type="text" name="" id="" placeholder="Comment" class="comment">
+                                    </div>
+                                    <div class="post">
+                                        <input type="submit" value="Post">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="newsletter">
+                            <h2 class="sidebar-title"><b>Поиск</b></h2>
+                            <form action="{% url 'search' %}" method="get">
+                                <input type="text" name="s" placeholder="Введите текст...">
+                                <input type="submit" value="Найти">
+                            </form>
+                        </div>
+
+                        {% get_popular %}
+
+                    </div>
+                    <div class="tags">
+                        <h2 class="sidebar-title">Тэги</h2>
+
+                        {% get_tag %}
+                    </div>
+                    <div class="newsletter">
+                        <h2 class="sidebar-title">Subscribe To oUR nEWSLETTER</h2>
+                        <form action="#" method="post">
+                            <input type="email" name="" id="" placeholder="Email">
+                            <input type="submit" value="Subscribe">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="blog-post-area">
+    {% if page_obj.has_other_pages %}
+    <div class="pegination">
+        <div class="nav-links">
+            {% if page_obj.has_previous %}
+            <a class="page-numbers" href="?{{ s }}page={{ page_obj.previous_page_number }}"><i>&laquo</i>
+            </a>
+            {% endif %}
+            {% for p in page_obj.paginator.page_range %}
+            {% if page_obj.number == p %}
+            <a class="page-numbers current" href="?{{ s }}page={{ p }}">{{ p }}</a>
+            {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+            <a class="page-numbers" href="?{{ s }}page={{ p }}">{{ p }}</a>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <a class="page-numbers" href="?{{ s }}page={{ page_obj.next_page_number  }}"><i>&raquo</i></a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
