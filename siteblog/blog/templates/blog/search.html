@@ -38,22 +38,7 @@
 {% endfor %}
 
                             </div>
-                            <div class="col-md-12">
-                                <form action="#" method="get">
-                                    <div class="name">
-                                        <input type="text" name="" id="" placeholder="Name" class="name">
-                                    </div>
-                                    <div class="email">
-                                        <input type="email" name="" id="" placeholder="Email" class="email">
-                                    </div>
-                                    <div class="comment">
-                                        <input type="text" name="" id="" placeholder="Comment" class="comment">
-                                    </div>
-                                    <div class="post">
-                                        <input type="submit" value="Post">
-                                    </div>
-                                </form>
-                            </div>
+
                         </div>
                     </div>
 
@@ -65,47 +50,26 @@
                                 <input type="submit" value="Найти">
                             </form>
                         </div>
-
                         {% get_popular %}
-
                     </div>
-                    <div class="tags">
-                        <h2 class="sidebar-title">Тэги</h2>
-
+                    <div>
                         {% get_tag %}
                     </div>
-                    <div class="newsletter">
-                        <h2 class="sidebar-title">Subscribe To oUR nEWSLETTER</h2>
-                        <form action="#" method="post">
-                            <input type="email" name="" id="" placeholder="Email">
-                            <input type="submit" value="Subscribe">
-                        </form>
-                    </div>
+                <div class="newsletter">
+    <h2 class="sidebar-title"><b>Подпишитесь на наши новости</b></h2>
+    <form action="{% url 'add_subscribe' %}" method="post">
+        {% csrf_token %}
+
+        <input type="email" name="email" placeholder="Email" autocomplete="off">
+        <input type="submit" value="Подписаться">
+    </form>
+</div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <section class="blog-post-area">
-    {% if page_obj.has_other_pages %}
-    <div class="pegination">
-        <div class="nav-links">
-            {% if page_obj.has_previous %}
-            <a class="page-numbers" href="?{{ s }}page={{ page_obj.previous_page_number }}"><i>&laquo</i>
-            </a>
-            {% endif %}
-            {% for p in page_obj.paginator.page_range %}
-            {% if page_obj.number == p %}
-            <a class="page-numbers current" href="?{{ s }}page={{ p }}">{{ p }}</a>
-            {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
-            <a class="page-numbers" href="?{{ s }}page={{ p }}">{{ p }}</a>
-            {% endif %}
-            {% endfor %}
-            {% if page_obj.has_next %}
-            <a class="page-numbers" href="?{{ s }}page={{ page_obj.next_page_number  }}"><i>&raquo</i></a>
-            {% endif %}
-        </div>
-    </div>
-    {% endif %}
+    {% include 'inc/_pagination.html' %}
 </section>
 {% endblock %}

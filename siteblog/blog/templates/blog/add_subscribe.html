@@ -1,0 +1,53 @@
+<!DOCTYPE>
+{% extends 'base.html' %}
+{% load static %}
+{% load sidebar %}
+
+{% block title %}
+{{title}} :: {{ block.super}}
+{% endblock %}
+
+{% block content %}
+
+<section class="single-blog-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="border-top">
+                    <div class="col-md-8">
+                        <div class="blog-area">
+                            <div class="ads-area">
+                             <img src="{% static 'img/ads.jpg' %}" alt="">
+                                <p>Your Ad Banner Goes Here</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="newsletter">
+                        <h2 class="sidebar-title"><b>Поиск</b></h2>
+                            <form action="{% url 'search' %}" method="get">
+                                <input type="text" name="s" placeholder="Введите текст...">
+                                <input type="submit" value="Найти">
+                        </form>
+                    </div>
+
+                        {% get_popular %}
+
+                    </div>
+                    <div>
+                             {% get_tag %}
+                    </div>
+                     <div class="newsletter">
+    <h2 class="sidebar-title"><b>Подпишитесь на наши новости</b></h2>
+    <form action="{% url 'add_subscribe' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Подписаться">
+    </form>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

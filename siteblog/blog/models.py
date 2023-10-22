@@ -80,7 +80,7 @@ class Post(models.Model):
 
 
 class Subscriber(models.Model):
-    email = models.EmailField(max_length=50, verbose_name='Адрес электронной почты', unique=True)
+    email = models.EmailField(max_length=50, verbose_name='email', unique=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата подписки")
 
     class Meta:

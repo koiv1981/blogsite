@@ -9,6 +9,7 @@
         {% endif %}
         <div class="portfolio-text">
             <h5><a href="{{ item.get_absolute_url }}"> {{ item.title }}</a></h5>
+            <p>{{ item.content|safe|truncatewords_html:10 }}</p>
             <p>{{ item.author }} {{ item.created_at|date:"d E Y" }}</p>
         </div>
     </div>
