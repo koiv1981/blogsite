@@ -54,6 +54,7 @@ class CommentAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "updated_at")
     list_filter = ("created_at", "is_published")
     search_fields = ("name", "email", "content")
+    save_as = True
 
 
 admin.site.register(Category, CategoryAdmin)

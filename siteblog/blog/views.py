@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
-from django.contrib import messages
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 
-from .forms import SubscribeForm
-from .models import Post, Category, Tag
+from .forms import SubscribeForm, CommentForm
+from .models import Post, Category, Tag, Comment
 from django.db.models import F
 
 
@@ -28,7 +28,7 @@ class PostsByCategory(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostsByCategory, self).get_context_data(**kwargs)
-        context['title'] = Category.objects.get(slug=self.kwargs['slug'])
+        #context['title'] = Category.objects.get(slug=self.kwargs['slug'])
         return context
 
     def get_queryset(self):
@@ -59,6 +59,7 @@ class GetPost(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(GetPost, self).get_context_data(**kwargs)
         context['title'] = Post.objects.get(slug=self.kwargs['slug'])
+        context['comments'] = Comment.objects.filter(is_published=True)
         self.object.views = F('views') + 1
         self.object.save()
         self.object.refresh_from_db()
@@ -78,6 +79,12 @@ class Search(ListView):
 
     def get_queryset(self):
         return Post.objects.filter(title__icontains=self.request.GET.get('s'))
+
+
+class AddComment(CreateView):
+    form_class = CommentForm
+    success_url = reverse_lazy('home')
+    template_name = 'blog/add_comment.html'
 
 
 def add_subscribe(request):

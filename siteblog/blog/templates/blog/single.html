@@ -42,16 +42,17 @@
                                 <h3>Комментарии:</h3>
 
                                 <ul class="commentlist">
+                                    {% for item in comments %}
+                                    {% if item.post_id == post.id %}
                                     <li>
                                         <article class="comment">
                                             <section class="comment-details">
                                                 <div class="author-name">
-                                                    <h5><a href="#">Selina Gomez</a></h5>
-                                                    <p>February 25 2017</p>
+                                                    <h5><a href="#">{{ item.name }}</a></h5>
+                                                    <p>{{ item.created_at }}</p>
                                                 </div>
                                                 <div class="comment-body">
-                                                    <p>is simply dummy text of the printing and typesetting industry.
-                                                        Lorem Ipsum has been the industry's standard </p>
+                                                    <p>{{ item.content }}</p>
                                                 </div>
                                                 <div class="reply">
                                                     <p><span><a href="#"><i class="fa fa-thumbs-up"
@@ -62,22 +63,12 @@
                                             </section>
                                         </article>
                                     </li>
+                                    {% endif %}
+                                    {% endfor %}
                                 </ul>
+                                 <a href="{% url 'add_comment' %}">Оставить комментарий на этот пост.</a>
                             </div>
-                            <form action="#" method="get">
-                                <div class="name">
-                                    <input type="text" name="" id="" placeholder="Name" class="name">
-                                </div>
-                                <div class="email">
-                                    <input type="email" name="" id="" placeholder="Email" class="email">
-                                </div>
-                                <div class="comment">
-                                    <input type="text" name="" id="" placeholder="Comment" class="comment">
-                                </div>
-                                <div class="post">
-                                    <input type="submit" value="Post">
-                                </div>
-                            </form>
+
                         </div>
                     </div>
 

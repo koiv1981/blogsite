@@ -98,10 +98,14 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Обновлен")
     is_published = models.BooleanField(default=True, verbose_name="Опубликован")
 
+    # def get_absolute_url(self):
+    #     return reverse_lazy('add_comment', kwargs={"comment_id": self.pk})
+
     class Meta:
         ordering = ["created_at"]
         verbose_name = "Комментарий"
         verbose_name_plural = "Комментарии"
 
+
     def __str__(self):
-        return f'Комментарий от {self.name} на {self.post}'
+        return f'{self.post}'

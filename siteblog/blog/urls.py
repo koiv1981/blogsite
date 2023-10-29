@@ -8,5 +8,6 @@ urlpatterns = [
     path('tag/<str:slug>/', PostsByTag.as_view(), name='tag'),
     path('search', Search.as_view(), name='search'),
     path('add-subscribe', add_subscribe, name='add_subscribe'),
+    path('comment/add-comment', AddComment.as_view(), name='add_comment'),
     path('', Home.as_view(), name='home'),
 ]

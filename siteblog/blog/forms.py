@@ -11,4 +11,4 @@ class SubscribeForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'email', 'content')
+        fields = ('name', 'email', 'content', 'post')
